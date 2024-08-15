@@ -28,8 +28,8 @@ To read more about using these font, please visit the Next.js documentation:
 import { SVGProps, useState } from "react";
 import Link from "next/link";
 import { Toggle } from "../components/ui/toggle";
-import { ThemeProvider } from "next-themes"; // Assuming you are using next-themes for theming
-import { cn } from "../lib/utils"; // Utility for conditional class names
+import { ThemeProvider } from "next-themes";
+import { cn } from "../lib/utils";
 
 export default function Component() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -37,81 +37,68 @@ export default function Component() {
   return (
     <ThemeProvider attribute="class">
       <div
-        className={`flex flex-col min-h-screen ${
-          isDarkMode
-            ? "bg-background text-card-foreground"
-            : "bg-muted text-foreground"
-        }`}
+        className={cn(
+          "flex flex-col min-h-screen transition-colors duration-500",
+          isDarkMode ? "bg-blue-800 text-white" : "bg-blue-200 text-black"
+        )}
       >
         <header
-          className={`flex justify-between items-center px-6 py-4 ${
-            isDarkMode ? "bg-lightblue" : "bg-navy"
-          }`}
+          className={cn(
+            "flex justify-between items-center px-6 py-4 transition-all duration-400",
+            isDarkMode ? "bg-blue-950" : "bg-blue-400"
+          )}
         >
-          <Link href="#" className="text-xl font-bold text-white">
+          <Link href="#" className="text-xl font-bold">
             _ PG /
           </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="#" className="hover:underline text-white">
+          <nav className="flex gap-6">
+            <Link href="#" className="hover:underline">
               Actively Building
             </Link>
-            <Link href="#projects" className="hover:underline text-white">
+            <Link href="#projects" className="hover:underline">
               Projects
             </Link>
           </nav>
           <Toggle
             aria-label="Toggle dark mode"
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className={`rounded-full p-2 ${
-              isDarkMode ? "bg-lightblue" : "bg-navy"
-            }`}
+            className={cn(
+              "rounded-full p-2 transition-colors duration-500",
+              isDarkMode ? "bg-blue-800" : "bg-blue-400"
+            )}
           >
             <SunMoonIcon className="h-6 w-6 text-white" />
           </Toggle>
         </header>
 
-        <main className="flex flex-grow flex-col items-center justify-center">
+        <main className="flex flex-grow flex-col items-center justify-start mt-4">
           <div className="text-center mt-4">
-            {" "}
-            {/* Adjusted margin here */}
-            <h1
-              className={`text-4xl font-bold mb-4 ${
-                isDarkMode ? "text-lightblue" : "text-navy"
-              }`}
-            >
-              Pranay Gupta
-            </h1>
-            <p
-              className={`mb-8 text-lg ${
-                isDarkMode ? "text-lightblue" : "text-navy"
-              }`}
-            >
-              Software Engineer. Builder. Cook.
-            </p>
-            <div className="flex gap-4 justify-center mb-16">
-              {" "}
-              {/* Increased margin for spacing */}
+            <h1 className="text-4xl font-bold mb-4">Pranay Gupta</h1>
+            <p className="mb-8 text-lg">Software Engineer. Builder. Cook.</p>
+            <div className="flex gap-4 justify-center mb-12">
               <Link href="/Pranay_Gupta_Resume.pdf" className="group">
                 <div
                   className={cn(
-                    "flex items-center justify-center p-4 rounded-lg transition-all",
-                    "group-hover:border group-hover:border-lightblue group-hover:bg-navy",
-                    "text-navy group-hover:text-white"
+                    "flex items-center justify-center p-4 rounded-lg transition-all duration-500",
+                    isDarkMode
+                      ? "group-hover:border-white group-hover:bg-blue-600 text-white"
+                      : "group-hover:border-black group-hover:bg-blue-400 text-black"
                   )}
                 >
-                  <FileIcon className="h-6 w-6 mr-2 group-hover:text-white" />
+                  <FileIcon className="h-6 w-6 mr-2" />
                   Resume
                 </div>
               </Link>
               <Link href="https://github.com/gupranay" className="group">
                 <div
                   className={cn(
-                    "flex items-center justify-center p-4 rounded-lg transition-all",
-                    "group-hover:border group-hover:border-lightblue group-hover:bg-navy",
-                    "text-navy group-hover:text-white"
+                    "flex items-center justify-center p-4 rounded-lg transition-all duration-500",
+                    isDarkMode
+                      ? "group-hover:border-white group-hover:bg-blue-600 text-white"
+                      : "group-hover:border-black group-hover:bg-blue-400 text-black"
                   )}
                 >
-                  <GithubIcon className="h-6 w-6 mr-2 group-hover:text-white" />
+                  <GithubIcon className="h-6 w-6 mr-2" />
                   GitHub
                 </div>
               </Link>
@@ -121,12 +108,13 @@ export default function Component() {
               >
                 <div
                   className={cn(
-                    "flex items-center justify-center p-4 rounded-lg transition-all",
-                    "group-hover:border group-hover:border-lightblue group-hover:bg-navy",
-                    "text-navy group-hover:text-white"
+                    "flex items-center justify-center p-4 rounded-lg transition-all duration-500",
+                    isDarkMode
+                      ? "group-hover:border-white group-hover:bg-blue-600 text-white"
+                      : "group-hover:border-black group-hover:bg-blue-400 text-black"
                   )}
                 >
-                  <LinkedinIcon className="h-6 w-6 mr-2 group-hover:text-white" />
+                  <LinkedinIcon className="h-6 w-6 mr-2" />
                   LinkedIn
                 </div>
               </Link>
@@ -141,10 +129,14 @@ export default function Component() {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-navy text-lg">
+                  <a
+                    href="https://annarborusa.org/"
+                    className="group font-semibold text-lg transition duration-300"
+                  >
                     Ann Arbor Spark – Entrepreneurship Services Team
-                  </p>
-                  <p className="text-sm text-navy">
+                    <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+                  </a>
+                  <p className="text-sm">
                     Full Stack Software Engineering Intern
                   </p>
                 </div>
@@ -159,11 +151,18 @@ export default function Component() {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-navy text-lg">
-                    V1 Michigan
-                  </p>
-                  <p className="text-sm text-navy">
-                  Head of Product Studio & Recruitment
+                  {/* underline animation should only underline the text */}
+                <a
+                    href="https://v1michigan.com/"
+                    className="group font-semibold text-lg transition duration-300"
+                  >
+                    V1 Michigan - Product Studio
+                    <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black">
+                      
+                    </span>
+                  </a>
+                  <p className="text-sm">
+                    Head of Product Studio & Recruitment
                   </p>
                 </div>
               </div>
@@ -177,12 +176,14 @@ export default function Component() {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-navy text-lg">
-                    AiPi Solutions – Legal Infrastructure Team
-                  </p>
-                  <p className="text-sm text-navy">
-                    Software Engineering + ML Intern
-                  </p>
+                <a
+                    href="https://aipisolutions.com/"
+                    className="group font-semibold text-lg transition duration-300"
+                  >
+                     AiPi Solutions – Legal Infrastructure Team
+                    <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+                  </a>
+                  <p className="text-sm">Software Engineering + ML Intern</p>
                 </div>
               </div>
             </div>
@@ -190,18 +191,9 @@ export default function Component() {
         </main>
 
         <footer className="text-center p-4">
-          <p className="text-sm text-navy">made by Pranay Gupta</p>
+          <p className="text-sm">made by Pranay Gupta</p>
         </footer>
       </div>
-     
-      <img
-                    src="/aipisolutions_logo.jpeg"
-                    alt="AiPi Solutions Logo"
-                    className="rounded-full max-w-full h-auto"
-
-                  />
-      
-      
     </ThemeProvider>
   );
 }
